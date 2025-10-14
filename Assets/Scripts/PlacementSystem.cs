@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-
+using System.Linq;
 
 public class PlacementSystem : MonoBehaviour
 {
@@ -20,9 +20,19 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private GameObject gridVisualization;
 
+    [SerializeField]
+    private GridData rugData, furnitureData;
+
+    private Renderer previewRenderer;
+
+    private List<GameObject> placedGameObjects = new();
+
     private void Start()
     {
         StopPlacement();
+        rugData = new();
+        furnitureData = new();
+        previewRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
     public void StartPlacement(int ID)
@@ -48,8 +58,38 @@ public class PlacementSystem : MonoBehaviour
         }
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        if (placementValidity == false)
+            return;
+
+        
         GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
         newObject.transform.position = grid.CellToWorld(gridPosition); //When we click LMB instantiate new object and place at cell position
+        placedGameObjects.Add(newObject);
+
+        int id = database.objectsData[selectedObjectIndex].ID;
+
+        GridData selectedData = (id == 15 || id == 16 || id == 17)
+            ? rugData
+            : furnitureData;
+
+
+        selectedData.AddObjectAt(gridPosition,
+                                 database.objectsData[selectedObjectIndex].Size,
+                                 database.objectsData[selectedObjectIndex].ID,
+                                 placedGameObjects.Count - 1);
+
+    }
+
+    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+    {
+        int id = database.objectsData[selectedObjectIndex].ID;
+        int[] rugIDs = { 15, 16, 17 };
+
+        bool isRug = rugIDs.Contains(id);
+
+        return rugData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     }
 
     private void StopPlacement()
@@ -67,6 +107,10 @@ public class PlacementSystem : MonoBehaviour
             return;
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        previewRenderer.material.color = placementValidity ? Color.white : Color.red;
+
         mouseIndicator.transform.position = mousePosition;
         cellIndicator.transform.position = grid.CellToWorld(gridPosition);
     }

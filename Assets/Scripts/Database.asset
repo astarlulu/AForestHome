@@ -16,12 +16,72 @@ MonoBehaviour:
   - <Name>k__BackingField: Bed_One
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 4, y: 6}
-    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 1982203f051af5e4aabd134599421338, type: 3}
+    <Prefab>k__BackingField: {fileID: 5354996653439623067, guid: 1547e82a7249c3d468475c6019cd974d, type: 3}
   - <Name>k__BackingField: Bed_Two
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 4, y: 6}
-    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: a25ed7c224d7d2d44854c7bc9db437ce, type: 3}
+    <Prefab>k__BackingField: {fileID: 670087647809948861, guid: e096e83a6bf07b44d9906b10e3a121af, type: 3}
   - <Name>k__BackingField: Bed_Three
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 4, y: 6}
-    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 2486fc7b621d1654697a2456d7949303, type: 3}
+    <Prefab>k__BackingField: {fileID: 1849112154649444937, guid: d8abb5409dc9de54288c727056b66bf4, type: 3}
+  - <Name>k__BackingField: Closet_One
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 4, y: 2}
+    <Prefab>k__BackingField: {fileID: 6321211064725327087, guid: 25a68314acd12b94897e628ab9bb2601, type: 3}
+  - <Name>k__BackingField: Closet_Two
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 5, y: 2}
+    <Prefab>k__BackingField: {fileID: 5231116474950002747, guid: 9a1bba9ae2ac7ed40aba015fd7bec389, type: 3}
+  - <Name>k__BackingField: Closet_Three
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 4, y: 2}
+    <Prefab>k__BackingField: {fileID: 7962931266823763723, guid: 2453a6b708d97b243875ef91e819cafc, type: 3}
+  - <Name>k__BackingField: Bookshelf_One
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 5, y: 2}
+    <Prefab>k__BackingField: {fileID: 4773587961798817852, guid: 808b026fe0bd6fc459df7a5ea21b7e31, type: 3}
+  - <Name>k__BackingField: Bookshelf_Two
+    <ID>k__BackingField: 7
+    <Size>k__BackingField: {x: 5, y: 2}
+    <Prefab>k__BackingField: {fileID: 9045474514372743809, guid: e7baeb2d532bd6040bb9b779088060b8, type: 3}
+  - <Name>k__BackingField: Bookshelf_Three
+    <ID>k__BackingField: 8
+    <Size>k__BackingField: {x: 5, y: 3}
+    <Prefab>k__BackingField: {fileID: 88839404211063140, guid: 383dbe61763e2044cb862cbb2f4c081e, type: 3}
+  - <Name>k__BackingField: Desk_One
+    <ID>k__BackingField: 9
+    <Size>k__BackingField: {x: 4, y: 4}
+    <Prefab>k__BackingField: {fileID: 1985643616786864249, guid: 1bb40684690ab5145bdc08d26169e5aa, type: 3}
+  - <Name>k__BackingField: Desk_Two
+    <ID>k__BackingField: 10
+    <Size>k__BackingField: {x: 4, y: 4}
+    <Prefab>k__BackingField: {fileID: 1607175754881119307, guid: 29337d1d9850c1443945689109abdc53, type: 3}
+  - <Name>k__BackingField: Desk_Three
+    <ID>k__BackingField: 11
+    <Size>k__BackingField: {x: 4, y: 4}
+    <Prefab>k__BackingField: {fileID: 5848128131401937139, guid: 076702eb079b87448b9f58ff50f1419f, type: 3}
+  - <Name>k__BackingField: Plant_One
+    <ID>k__BackingField: 12
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 8692601666402710165, guid: 7d76a99bd81b69d4082011ccc8d90639, type: 3}
+  - <Name>k__BackingField: Plant_Two
+    <ID>k__BackingField: 13
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 7268604062082466494, guid: 0336dea8e38fa8b4294b37b4293d7c79, type: 3}
+  - <Name>k__BackingField: Plant_Three
+    <ID>k__BackingField: 14
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 252967353139182243, guid: 2ead04dc3060ca44b94cd70f7df6f606, type: 3}
+  - <Name>k__BackingField: Rug_One
+    <ID>k__BackingField: 15
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 4682128996931490391, guid: 49f01b35ead1e0744966472851a93f39, type: 3}
+  - <Name>k__BackingField: Rug_Two
+    <ID>k__BackingField: 16
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 4682128996931490391, guid: ef13db28b29ef6d4b84b6ffc8a1c13ff, type: 3}
+  - <Name>k__BackingField: Rug_Three
+    <ID>k__BackingField: 17
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 4682128996931490391, guid: 924743306e9ee73488fed006eb7d8af9, type: 3}
