@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CoilletownCastle.unity
     guid: 826e37c0e72f9564fa49f52867dfc118
   - enabled: 1
-    path: Assets/Scenes/OutsideMaisieHome.unity
-    guid: eb4003def75bb1c41b247b0846dd07ab
-  - enabled: 1
     path: Assets/Scenes/InsideMaisieHome.unity
     guid: ed98ed722e6fec449917d8cb3f1f6105
   - enabled: 1

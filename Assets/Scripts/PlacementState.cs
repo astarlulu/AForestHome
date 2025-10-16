@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PlacementState : IBuildingState
 {
+    private int currentRotation = 0; // ✅ stores rotation in degrees
     private int selectedObjectIndex = -1;
     int ID;
     Grid grid;
@@ -36,12 +37,16 @@ public class PlacementState : IBuildingState
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
         if (selectedObjectIndex > -1)
         {
+            // ✅ Start the preview with the current rotation (so it's not offset initially)
             previewSystem.StartShowingPlacementPreview(
                 database.objectsData[selectedObjectIndex].Prefab,
-                database.objectsData[selectedObjectIndex].Size);
+                database.objectsData[selectedObjectIndex].Size,
+                currentRotation); // <--- added parameter
         }
         else
+        {
             throw new System.Exception($"No object with ID {iD}");
+        }
     }
 
     public void EndState()
@@ -55,9 +60,14 @@ public class PlacementState : IBuildingState
         if (!placementValidity)
             return;
 
+        Vector3 placePos = grid.CellToWorld(gridPosition);
+        Quaternion rot = Quaternion.Euler(0, currentRotation, 0); // ✅ apply rotation
+
+        // ✅ Updated to use rotation
         int index = objectPlacer.PlaceObject(
             database.objectsData[selectedObjectIndex].Prefab,
-            grid.CellToWorld(gridPosition));
+            placePos,
+            rot);
 
         int id = database.objectsData[selectedObjectIndex].ID;
         bool isRug = rugIDs.Contains(id);
@@ -69,7 +79,7 @@ public class PlacementState : IBuildingState
             id,
             index);
 
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+        previewSystem.UpdatePosition(placePos, false);
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
@@ -90,11 +100,16 @@ public class PlacementState : IBuildingState
         }
     }
 
-
-
     public void UpdateState(Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+    }
+
+    // ✅ Rotation method from PlacementSystem
+    public void RotatePreview(int newRotation)
+    {
+        currentRotation = newRotation;
+        previewSystem.UpdateRotation(currentRotation);
     }
 }

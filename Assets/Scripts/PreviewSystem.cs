@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -33,13 +33,19 @@ public class PreviewSystem : MonoBehaviour
         ApplyFeedbackToCursor(false);
     }
 
-    public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
+    public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size, int rotation = 0)
     {
         previewObject = Instantiate(prefab);
         PreparePreview(previewObject);
         PrepareCursor(size);
+
+        // ✅ Set both rotations at start
+        previewObject.transform.rotation = Quaternion.Euler(0, rotation, 0);
+        cellIndicator.transform.rotation = Quaternion.Euler(0, rotation, 0);
+
         cellIndicator.SetActive(true);
     }
+
 
     private void PrepareCursor(Vector2Int size)
     {
@@ -107,8 +113,21 @@ public class PreviewSystem : MonoBehaviour
 
     private void MovePreview(Vector3 position)
     {
-        previewObject.transform.position = new Vector3(position.x, 
+        if (previewObject == null) return;
+
+        previewObject.transform.position = new Vector3(position.x,
             position.y + previewYOffset, position.z);
     }
+
+
+    public void UpdateRotation(int rotation)
+    {
+        if (previewObject != null)
+            previewObject.transform.rotation = Quaternion.Euler(0, rotation, 0);
+
+        if (cellIndicator != null)
+            cellIndicator.transform.rotation = Quaternion.Euler(0, rotation, 0);
+    }
+
 
 }

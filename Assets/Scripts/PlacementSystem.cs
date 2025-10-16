@@ -30,6 +30,9 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private ObjectPlacer objectPlacer;
 
+    private int currentRotation = 0; // Stores rotation in degrees (0, 90, 180, 270)
+
+
     IBuildingState buildingState;
 
     private void Start()
@@ -123,16 +126,26 @@ public class PlacementSystem : MonoBehaviour
     {
         if (buildingState == null)
             return;
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-        if(lastDetectedPosition != gridPosition)
+
+        if (lastDetectedPosition != gridPosition)
         {
             buildingState.UpdateState(gridPosition);
             lastDetectedPosition = gridPosition;
         }
-        
-        
+
+        // 🔹 Add this block for rotation input
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            currentRotation = (currentRotation + 90) % 360;
+            if (buildingState is PlacementState placementState)
+            {
+                placementState.RotatePreview(currentRotation);
+            }
+        }
     }
 
-    
+
 }
