@@ -17,14 +17,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Image characterImage;
     [SerializeField] private List<DialogueLine> dialogueLines;
+    [SerializeField] GameObject dialogueUI;            // Drag your dialogue panel here
+    [SerializeField] Player player;
 
     private int dialogueIndex;
     private DialogueTrigger trigger;
 
-    public void StartDialogue()
+    public void StartDialogue(DialogueTrigger ctx, List<DialogueLine> dl)
     {
+        dialogueLines = dl;
+        trigger = ctx;
+        player.FreezePlayer(true);
+        dialogueUI.SetActive(true);
         dialogueIndex = 0;
-        trigger = FindObjectOfType<DialogueTrigger>();
         ShowDialogue(dialogueIndex);
     }
 
@@ -52,6 +57,10 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        dialogueUI.SetActive(false);
+        player.FreezePlayer(false);
+        dialogueLines.Clear();
+
         if (trigger != null)
         {
             trigger.EndDialogue();

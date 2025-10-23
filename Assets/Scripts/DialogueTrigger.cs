@@ -1,12 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
     public DialogueManager dialogueManager; // Drag your DialogueManager here
-    public GameObject dialogueUI;            // Drag your dialogue panel here
     public Animator npcAnimator;             // Optional: NPC animation
-
-    private bool isPlayerNear = false;
+    [SerializeField]private List<DialogueLine> dialogueLines;
+    public bool isPlayerNear = false;
 
     void Update()
     {
@@ -14,19 +14,23 @@ public class DialogueTrigger : MonoBehaviour
         {
             StartDialogue();
         }
+        else
+        {
+            EndDialogue();
+        }
     }
+
+    
 
     void StartDialogue()
     {
-        dialogueUI.SetActive(true);
-        dialogueManager.StartDialogue();
 
+        dialogueManager.StartDialogue(this, dialogueLines);
         
     }
 
     public void EndDialogue()
     {
-        dialogueUI.SetActive(false);
 
         if (npcAnimator != null)
             npcAnimator.SetTrigger("Idle");

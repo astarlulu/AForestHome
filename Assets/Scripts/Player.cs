@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     float horizontal;
 
     Animator anim;
-   
+    bool freezePlayer;
+
   
     void Start()
     {
@@ -18,11 +19,21 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        if(freezePlayer == true)
+        {
+            return;
+        }
+
         horizontal = Input.GetAxis("Horizontal");
 
         anim.SetFloat("Horizontal", horizontal);
 
         Vector3 moveDirection = new Vector2(horizontal, 0);
         transform.position += moveDirection * Time.deltaTime * speed;
+    }
+
+    public void FreezePlayer(bool value)
+    {
+        freezePlayer = value;
     }
 }
