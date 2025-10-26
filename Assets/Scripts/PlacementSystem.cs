@@ -6,114 +6,76 @@ using System.Linq;
 
 public class PlacementSystem : MonoBehaviour
 {
-   
-    
     private InputManager inputManager;
-    [SerializeField]
-    private Grid grid;
-
-    [SerializeField]
-    private ObjectsDatabase database;
-    
-
-    [SerializeField]
-    private GameObject gridVisualization;
-
-    [SerializeField]
-    private GridData rugData, furnitureData;
-
-    [SerializeField]
-    private PreviewSystem preview;
+    [SerializeField] private Grid grid;
+    [SerializeField] private ObjectsDatabase database;
+    [SerializeField] private GameObject gridVisualization;
+    [SerializeField] private GridData rugData, furnitureData;
+    [SerializeField] private PreviewSystem preview;
+    [SerializeField] private ObjectPlacer objectPlacer;
 
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
-
-    [SerializeField]
-    private ObjectPlacer objectPlacer;
-
-    private int currentRotation = 0; // Stores rotation in degrees (0, 90, 180, 270)
-
-
-    IBuildingState buildingState;
+    private int currentRotation = 0;
+    private IBuildingState buildingState;
 
     private void Start()
     {
-
-        inputManager = FindFirstObjectByType<InputManager>(); // ✅ Fix
+        inputManager = FindFirstObjectByType<InputManager>();
         rugData = new();
         furnitureData = new();
-        StopPlacement(); // ✅ Now safe to call
-
+        StopPlacement();
     }
 
     public void StartPlacement(int ID)
     {
         StopPlacement();
         gridVisualization.SetActive(true);
-        buildingState = new PlacementState(ID,
-                                           grid,
-                                           preview,
-                                           database,
-                                           rugData,
-                                           furnitureData,
-                                           objectPlacer);
-       
+        buildingState = new PlacementState(
+            ID,
+            grid,
+            preview,
+            database,
+            rugData,
+            furnitureData,
+            objectPlacer
+        );
+
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
-
     }
 
     public void StartRemoving()
     {
         StopPlacement();
         gridVisualization.SetActive(true);
-        buildingState = new RemovingState(grid,
-                                          preview,
-                                          rugData,
-                                          furnitureData,
-                                          objectPlacer);
+        buildingState = new RemovingState(
+            grid,
+            preview,
+            rugData,
+            furnitureData,
+            objectPlacer
+        );
+
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
 
     private void PlaceStructure()
     {
-        if(inputManager.IsPointerOverUI())
-        {
+        if (inputManager.IsPointerOverUI())
             return;
-        }
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
         buildingState.OnAction(gridPosition);
-
     }
-
-    //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-    //{
-    //    int id = database.objectsData[selectedObjectIndex].ID;
-    //    int[] rugIDs = { 15, 16, 17 };
-    //    bool isRug = rugIDs.Contains(id);
-    //    Vector2Int size = database.objectsData[selectedObjectIndex].Size;
-
-    //    if (isRug)
-    //    {
-    //        // Rugs can be placed only if no rug already occupies the cell
-    //        return rugData.CanPlaceObjectAt(gridPosition, size);
-    //    }
-    //    else
-    //    {
-    //        // Furniture can be placed if there's no furniture already there,
-    //        // but rugs underneath are allowed
-    //        bool canPlaceOnFurniture = furnitureData.CanPlaceObjectAt(gridPosition, size);
-    //        return canPlaceOnFurniture;
-    //    }
-    //}
-
 
     private void StopPlacement()
     {
         if (buildingState == null)
             return;
+
         gridVisualization.SetActive(false);
         buildingState.EndState();
         inputManager.OnClicked -= PlaceStructure;
@@ -136,7 +98,7 @@ public class PlacementSystem : MonoBehaviour
             lastDetectedPosition = gridPosition;
         }
 
-        // 🔹 Add this block for rotation input
+        // 🔁 Handle rotation
         if (Input.GetKeyDown(KeyCode.R))
         {
             currentRotation = (currentRotation + 90) % 360;
@@ -146,6 +108,4 @@ public class PlacementSystem : MonoBehaviour
             }
         }
     }
-
-
 }

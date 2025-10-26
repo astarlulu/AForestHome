@@ -7,7 +7,7 @@ public class PlacementState : IBuildingState
 {
     private int currentRotation = 0; // ✅ stores rotation in degrees
     private int selectedObjectIndex = -1;
-    int ID;
+    public int ID;
     Grid grid;
     PreviewSystem previewSystem;
     ObjectsDatabase database;

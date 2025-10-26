@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class DialogueLine
@@ -22,6 +23,7 @@ public class DialogueManager : MonoBehaviour
 
     private int dialogueIndex;
     private DialogueTrigger trigger;
+    [SerializeField] string sceneName;
 
     public void StartDialogue(DialogueTrigger ctx, List<DialogueLine> dl)
     {
@@ -64,6 +66,12 @@ public class DialogueManager : MonoBehaviour
         if (trigger != null)
         {
             trigger.EndDialogue();
+           
+        }
+
+        if (nameText.text == "Maisie")
+        {
+            SceneManager.LoadScene("InsideMaisieHome");
         }
     }
 }

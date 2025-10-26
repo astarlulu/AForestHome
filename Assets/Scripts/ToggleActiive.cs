@@ -7,7 +7,7 @@ public class ToggleActiive : MonoBehaviour
     [SerializeField] BoxCollider colliderToEnable;
     [SerializeField] BoxCollider interactiveParent;
 
-    [SerializeField] string tag;
+    [SerializeField] new string tag;
 
     private bool done = false;
 
